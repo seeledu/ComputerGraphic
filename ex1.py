@@ -22,6 +22,7 @@ def drawFunc():
     glVertex2f(0.3,0.3)
     glVertex2f(0.4,0.4)
     glEnd()
+    glColor3f(1.0,0.5,0.3)
     glBegin(GL_LINES)
     glVertex2f(-0.1,-0.9)
     glVertex2f(0.8,-0.5)
