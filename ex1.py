@@ -6,7 +6,7 @@
 # @Software: PyCharm
 """
     实验一:画点和线;
-    创新点,加上镜头的移动.
+    创新点,变换颜色.
 """
 from OpenGL.GL import *
 from OpenGL.GLUT import *
