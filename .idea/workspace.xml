@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="beade9c4-7478-46ef-ab70-bafc68b88227" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ex3.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ex2.py" afterPath="$PROJECT_DIR$/ex2.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -330,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539658905537</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ex3, bresenham draw line">
+      <created>1540263016779</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1540263016779</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -388,7 +393,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ex1,add color" />
     <MESSAGE value="ex2, draw line" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex2, draw line" />
+    <MESSAGE value="ex3, bresenham draw line" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex3, bresenham draw line" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
