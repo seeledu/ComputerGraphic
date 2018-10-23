@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-# @Time    : 2018/10/15 12:45
+# @Time    : 2018/10/23 10:09
 # @Author  : seeledu
 # @email   : seeledu@bug.moe
-# @File    : ex2.py
+# @File    : ex3.py
 # @Software: PyCharm
 """
- exercise2:利用鼠标、键盘，菜单等方式对图元进行交互操作
+用Bresenham画线算法实现水平、垂直、斜率大于1、斜率小于1、斜率为正、
+斜率为负等各种情况（不能直接调用OpenGL画线函数）。
 """
 import sys
 
@@ -13,18 +14,84 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
-"""
-1、用鼠标拖动画直线，线段终点始终跟随鼠标移动； 
-2、使用菜单界面修改直线的颜色；
-3、利用键盘控制直线在屏幕上移动；
-"""
 # 点1为起点,点2为终点
 x1 = 0
 y1 = 0
-x2 = 0
-y2 = 0
-left_button_state = 0
+x2 = 1
+y2 = 5
+left_button_state = 0  # 是否拖动的标志
 clearFlag = 0  # 清屏标志
+
+def plotLineLow(sx,sy,tx,ty):
+    """
+    Bresenham的画线方法,这是以x为锚点
+    :param sx:源点的x值
+    :param sy: 源点的y值
+    :param tx: 终点的x值
+    :param ty: 终点的y值
+    """
+    dx = tx - sx
+    dy = ty - sy
+    yi = 1
+    if dy <0:
+        yi = -1
+        dy = -dy
+    D = 2*dy-dx
+    y = sy
+    glPointSize(4)
+    glBegin(GL_POINTS)
+    for x in range(sx,tx):
+        print(x,y)
+        glVertex2i(int(x),int(y))
+        if D>0:
+            y+=yi
+            D-=2*dx
+        D +=2*dy
+    glEnd()
+def plotLineHigh(sx,sy,tx,ty):
+    """
+    Bresenham的画线方法,这是以y为锚点
+    :param sx:源点的x值
+    :param sy: 源点的y值
+    :param tx: 终点的x值
+    :param ty: 终点的y值
+    """
+    dx = tx - sx
+    dy = ty - sy
+    xi = 1
+    if dx <0:
+        xi = -1
+        dx = -dx
+    D = 2*dx-dy
+    x = sx
+    glPointSize(4)
+    glBegin(GL_POINTS)
+    for y in range(sy,ty):
+        print(x,y)
+        glVertex2i(int(x),int(y))
+        if D>0:
+            x+=xi
+            D-=2*dy
+        D +=2*dx
+    glEnd()
+def Bresenham(sx,sy,tx,ty):
+    """
+    利用Bresenham的画线方法,替代原来的openGL的GL_LINES函数,要根据斜率的正负选择不同的画线策略
+    :param sx:源点的x值
+    :param sy: 源点的y值
+    :param tx: 终点的x值
+    :param ty: 终点的y值
+    """
+    if abs(ty-sy)<abs(tx-sx):
+        if (sx>tx):
+            plotLineLow(tx,ty,sx,sy)
+        else:
+            plotLineLow(sx,sy,tx,ty)
+    else:
+        if (sy>ty):
+            plotLineHigh(tx,ty,sx,sy)
+        else:
+            plotLineHigh(sx,sy,tx,ty)
 
 
 def myInit():  # 初始化函数
@@ -50,10 +117,11 @@ def mouseMotionFunc(x, y):
 
 def drawFunc():  # 画线函数
     glClear(GL_COLOR_BUFFER_BIT)
-    glBegin(GL_LINES)
-    glVertex2i(x1, 480 - y1)
-    glVertex2i(x2, 480 - y2)
-    glEnd()
+    Bresenham(x1,480-y1,x2,480-y2)
+    # glBegin(GL_LINES)
+    # glVertex2i(x1, 480 - y1)
+    # glVertex2i(x2, 480 - y2)
+    # glEnd()
     glFlush()
 
 
@@ -72,8 +140,8 @@ def mouseEvent(button, state, x, y):  # 捕捉鼠标坐标的函数
             x1 = x
             y1 = y
             left_button_state = 1  # 更新左键的状态
-        elif (button):  # 右键清除全部东西
-            glClear(GL_COLOR_BUFFER_BIT)
+    elif (button == GLUT_MIDDLE_BUTTON):  # 右键清除全部东西
+        glClear(GL_COLOR_BUFFER_BIT)
 
 
 def processMenuEvents(option):
@@ -87,9 +155,7 @@ def processMenuEvents(option):
     if option == GL_GREEN:
         glColor3f(0, 1.0, 0)
         drawFunc()
-    # if option == 123:
-    #     clearFlag = 1
-    #     drawFunc()
+
 
 
 def keyBoardEvent(key, x, y):
@@ -125,7 +191,7 @@ def main():
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA)
     glutInitWindowSize(640, 480)
     glutInitWindowPosition(100, 150)
-    glutCreateWindow("ex2")
+    glutCreateWindow("ex3")
     myInit()
     glutDisplayFunc(drawFunc)
     glutMouseFunc(mouseEvent)
@@ -133,7 +199,6 @@ def main():
     glutKeyboardFunc(keyBoardEvent)
     glutCreateMenus()
     glutMainLoop()
-
 
 if __name__ == '__main__':
     main()
