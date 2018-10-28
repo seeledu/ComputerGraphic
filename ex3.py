@@ -24,7 +24,7 @@ clearFlag = 0  # 清屏标志
 
 def plotLineLow(sx,sy,tx,ty):
     """
-    Bresenham的画线方法,这是以x为锚点
+    Bresenham的画线方法,这是以x为基准
     :param sx:源点的x值
     :param sy: 源点的y值
     :param tx: 终点的x值
@@ -33,7 +33,7 @@ def plotLineLow(sx,sy,tx,ty):
     dx = tx - sx
     dy = ty - sy
     yi = 1
-    if dy <0:
+    if dy < 0:
         yi = -1
         dy = -dy
     D = 2*dy-dx
@@ -50,7 +50,7 @@ def plotLineLow(sx,sy,tx,ty):
     glEnd()
 def plotLineHigh(sx,sy,tx,ty):
     """
-    Bresenham的画线方法,这是以y为锚点
+    Bresenham的画线方法,这是以y为基准
     :param sx:源点的x值
     :param sy: 源点的y值
     :param tx: 终点的x值
